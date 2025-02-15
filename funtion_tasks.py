@@ -19,6 +19,7 @@ import logging
 import subprocess
 import glob
 import sqlite3
+from openai import Image
 import requests
 from bs4 import BeautifulSoup
 import markdown
