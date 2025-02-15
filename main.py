@@ -26,7 +26,7 @@ from fastapi.responses import PlainTextResponse
 import os
 import logging
 from typing import Dict, Callable
-from funtion_tasks import (
+from funtion_tasks  import (
 format_file_with_prettier,
 convert_function_to_openai_schema,
 query_gpt,
@@ -154,7 +154,7 @@ async def read_file(path: str = Query(..., description="Path to the file to read
         content = file.read()
     return content
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     import uvicorn
     tools = [convert_function_to_openai_schema(count_occurrences), convert_function_to_openai_schema(query_database)] #REMOVE THIS LATER
     print(tools)

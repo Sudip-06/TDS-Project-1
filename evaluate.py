@@ -249,7 +249,7 @@ async def main(email: str):
     logging.info(f"🎯 Score: {score} / {total}")
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     import asyncio
     import argparse
 

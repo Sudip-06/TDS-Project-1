@@ -20,7 +20,7 @@ import time
 from PIL import Image, ImageDraw, ImageFont
 from faker import Faker
 
-config = {"root": "/Users/mamelane/Documents/projects/tds-trail-1/data"}
+config = {"root": "/home/ritwik01/project-1/data"}
 
 
 def num(str):
@@ -271,12 +271,12 @@ def a10_ticket_sales():
     conn.close()
 
 
-if _name_ == "_main_":
+if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser()
     parser.add_argument("email")
-    parser.add_argument("--root", default="/Users/mamelane/Documents/projects/tds-trail-1/data")
+    parser.add_argument("--root", default="/home/ritwik01/project-1/data")
     args = parser.parse_args()
     config["email"] = args.email
     config["root"] = os.path.abspath(args.root)
