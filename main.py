@@ -26,6 +26,10 @@ from fastapi.responses import PlainTextResponse
 import os
 import logging
 from typing import Dict, Callable
+import sys
+
+
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from funtion_tasks  import (
 format_file_with_prettier,
 convert_function_to_openai_schema,
