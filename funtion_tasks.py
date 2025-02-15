@@ -39,7 +39,6 @@ from sklearn.metrics.pairwise import cosine_similarity
 from typing import Callable, get_type_hints, Dict, Any, Tuple,Optional,List
 from pydantic import create_model, BaseModel
 import re
-from PIL import Image
 dotenv.load_dotenv()
 
 API_KEY = os.getenv("OPEN_AI_PROXY_TOKEN")
@@ -80,7 +79,7 @@ def convert_function_to_openai_schema(func: Callable) -> dict:
         name: (type_hints.get(name, Any), ...)
         for name in sig.parameters
     }
-    PydanticModel = create_model(func._name_ + "Model", **fields)
+    PydanticModel = create_model(func.__name__ + "Model", **fields)
     
    
     schema = PydanticModel.model_json_schema()
@@ -110,7 +109,7 @@ def convert_function_to_openai_schema(func: Callable) -> dict:
     openai_function_schema = {
         'type': 'function',
         'function':{
-        'name': func._name_,
+        'name': func.__name__,
         'description': parsed_docstring.short_description or '',
         'parameters': {
             'type': 'object',
@@ -337,7 +336,7 @@ def extract_specific_content_and_create_index(input_file: str, output_file: str,
     input_file_path = ensure_local_path(input_file)
     output_file_path = ensure_local_path(output_file)
 
-    extenstion_files = glob.glob(os.path.join(input_file_path, "", f"*{extension}"), recursive=True)
+    extenstion_files = glob.glob(os.path.join(input_file_path, "**", f"*{extension}"), recursive=True)
     
     index = {}
 
