@@ -20,7 +20,10 @@ import time
 from PIL import Image, ImageDraw, ImageFont
 from faker import Faker
 
-config = {"root": "/home/ritwik01/project-1/data"}
+config = {}  # Initialize config as a dictionary
+config["root"] = "/home/sudip/project-1/data"
+
+
 
 
 def num(str):
@@ -41,19 +44,19 @@ This  is a sample paragraph with extra  spaces and trailing whitespace.
 +Third item
     *    Fourth item
 
-py
+```py
 print("{email}")
 
-
+```
 """
 
 
 def a2_format_markdown():
     """Generate a poorly formatted markdown file at format.md.
 
-    This is a tricky file because formatting it twice changes the format!
+    This is a tricky file because formatting it _twice_ changes the format!
     """
-    write_file("data/format.md", get_markdown(config["email"]))
+    write_file("format.md", get_markdown(config["email"]))
 
 
 def get_dates(email):
@@ -82,7 +85,7 @@ def a3_dates():
     - yyyy/mm/dd HH:MM:SS
     """
     dates = get_dates(config["email"])
-    write_file("data/dates.txt", "\n".join(dates))
+    write_file("dates.txt", "\n".join(dates))
 
 
 def get_contacts(email):
@@ -97,7 +100,7 @@ def get_contacts(email):
 def a4_contacts():
     """Generate a JSON with 100 contacts with random first_name, last_name, and email"""
     contacts = get_contacts(config["email"])
-    write_file("data/contacts.json", json.dumps(contacts))
+    write_file("contacts.json", json.dumps(contacts))
 
 
 def get_logs(email):
@@ -118,7 +121,7 @@ def a5_logs():
     os.makedirs(os.path.join(config["root"], "logs"), exist_ok=True)
     now = time.time()
     for i, (age, text) in enumerate(get_logs(email)):
-        write_file(f"data/logs/log-{i}.log", text)
+        write_file(f"logs/log-{i}.log", text)
         os.utime(os.path.join(config["root"], f"logs/log-{i}.log"), (now - age, now - age))
 
 
@@ -173,7 +176,7 @@ def a7_email():
     """Generate an email file at email.txt"""
     data = get_email(config["email"])
     write_file(
-        "data/email.txt",
+        "email.txt",
         f"""Delivered-To: {data["recipient"]}
 MIME-Version: 1.0
 From: "{data["from_name"]}" <{data["from_email"]}>
@@ -238,7 +241,7 @@ def get_comments(email):
 
 def a9_comments():
     """Generate a comments.txt file with 100 random comments"""
-    write_file("data/comments.txt", "\n".join(get_comments(config["email"])))
+    write_file("comments.txt", "\n".join(get_comments(config["email"])))
 
 
 def get_tickets(email):
@@ -276,7 +279,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("email")
-    parser.add_argument("--root", default="/home/ritwik01/project-1/data")
+    parser.add_argument("--root", default="/data")
     args = parser.parse_args()
     config["email"] = args.email
     config["root"] = os.path.abspath(args.root)
