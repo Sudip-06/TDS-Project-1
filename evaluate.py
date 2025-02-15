@@ -39,7 +39,7 @@ def num(str):
 
 
 def mismatch(msg, expected, result):
-    logging.error(f"🔴 {msg}\n⚠️ EXPECTED:\n{expected}\n⚠️ RESULT:\n{result}")
+    logging.error(f"🔴 {msg}\n⚠ EXPECTED:\n{expected}\n⚠ RESULT:\n{result}")
     return False
 
 
@@ -69,8 +69,8 @@ async def read(path: str):
 async def a1(email: str, **kwargs):
     await run(
         f"""
-Install `uv` (if required) and run the script `https://raw.githubusercontent.com/sanand0/tools-in-data-science-public/tds-2025-01/datagen.py`
-with `{email}` as the only argument
+Install uv (if required) and run the script https://raw.githubusercontent.com/sanand0/tools-in-data-science-public/tds-2025-01/datagen.py
+with {email} as the only argument
 """
     )
     return email in await read("/data/format.md")
@@ -89,7 +89,7 @@ async def a2(email: str, file: str = "/data/format.md", **kwargs):
     ).stdout
     result = await run(
         f"""
-Format the contents of `{file}` using `prettier@3.4.2`, updating the file in-place
+Format the contents of {file} using prettier@3.4.2, updating the file in-place
 """
     )
     result = await read(file)
@@ -101,7 +101,7 @@ Format the contents of `{file}` using `prettier@3.4.2`, updating the file in-pla
 async def a3(email, **kwargs):
     dates = get_dates(email)
     await run(
-        "The file `/data/dates.txt` contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to `/data/dates-wednesdays.txt`"
+        "The file /data/dates.txt contains a list of dates, one per line. Count the number of Wednesdays in the list, and write just the number to /data/dates-wednesdays.txt"
     )
     result = await read("/data/dates-wednesdays.txt")
     expected = sum(1 for date in dates if parse(date).weekday() == 2)
@@ -114,7 +114,7 @@ async def a4(email, **kwargs):
     contacts = get_contacts(email)
     contacts.sort(key=lambda c: (c["last_name"], c["first_name"]))
     await run(
-        "Sort the array of contacts in `/data/contacts.json` by `last_name`, then `first_name`, and write the result to `/data/contacts-sorted.json`"
+        "Sort the array of contacts in /data/contacts.json by last_name, then first_name, and write the result to /data/contacts-sorted.json"
     )
     result = await read("/data/contacts-sorted.json")
     try:
@@ -132,7 +132,7 @@ async def a5(email, **kwargs):
     files.sort(key=lambda f: f[0])
     expected = "".join([f[1].split("\n")[0] + "\n" for f in files[:10]])
     await run(
-        "Write the first line of the 10 most recent `.log` file in `/data/logs/` to `/data/logs-recent.txt`, most recent first"
+        "Write the first line of the 10 most recent .log file in /data/logs/ to /data/logs-recent.txt, most recent first"
     )
     result = await read("/data/logs-recent.txt")
     if result.strip() != expected.strip():
@@ -144,10 +144,10 @@ async def a5(email, **kwargs):
 async def a6(email, **kwargs):
     docs = get_docs(email)
     await run(
-        """Find all Markdown (`.md`) files in `/data/docs/`.
+        """Find all Markdown (.md) files in /data/docs/.
 For each file, extract the first occurrance of each H1 (i.e. a line starting with `# `).
-Create an index file `/data/docs/index.json` that maps each filename (without the `/data/docs/` prefix) to its title
-(e.g. `{"README.md": "Home", "path/to/large-language-models.md": "Large Language Models", ...}`)"""
+Create an index file /data/docs/index.json that maps each filename (without the /data/docs/ prefix) to its title
+(e.g. {"README.md": "Home", "path/to/large-language-models.md": "Large Language Models", ...})"""
     )
     expected = {}
     for dir, file, text in docs:
@@ -171,7 +171,7 @@ Create an index file `/data/docs/index.json` that maps each filename (without th
 async def a7(email, **kwargs):
     expected = get_email(email)["from_email"]
     await run(
-        "`/data/email.txt` contains an email message. Pass the content to an LLM with instructions to extract the sender's email address, and write just the email address to `/data/email-sender.txt`"
+        "/data/email.txt contains an email message. Pass the content to an LLM with instructions to extract the sender's email address, and write just the email address to /data/email-sender.txt"
     )
     result = await read("/data/email-sender.txt")
     if result != expected:
@@ -182,7 +182,7 @@ async def a7(email, **kwargs):
 async def a8(email, **kwargs):
     data = get_credit_card(email)
     await run(
-        "`/data/credit_card.png` contains a credit card number. Pass the image to an LLM, have it extract the card number, and write it without spaces to `/data/credit-card.txt`"
+        "/data/credit_card.png contains a credit card number. Pass the image to an LLM, have it extract the card number, and write it without spaces to /data/credit-card.txt"
     )
     result = await read("/data/credit-card.txt")
     if re.sub(r"\D", "", result) != re.sub(r"\D", "", data["number"]):
@@ -206,7 +206,7 @@ async def a9(email, **kwargs):
     i, j = np.unravel_index(similarity.argmax(), similarity.shape)
     expected = "\n".join(sorted([data[i], data[j]]))
     await run(
-        "`/data/comments.txt` contains a list of comments, one per line. Using embeddings, find the most similar pair of comments and write them to `/data/comments-similar.txt`, one per line"
+        "/data/comments.txt contains a list of comments, one per line. Using embeddings, find the most similar pair of comments and write them to /data/comments-similar.txt, one per line"
     )
     result = await read("/data/comments-similar.txt")
     sorted_result = "\n".join(sorted([line for line in result.split("\n") if line.strip()]))
@@ -218,7 +218,7 @@ async def a9(email, **kwargs):
 async def a10(email, **kwargs):
     data = get_tickets(email)
     await run(
-        'The SQLite database file `/data/ticket-sales.db` has a `tickets` with columns `type`, `units`, and `price`. Each row is a customer bid for a concert ticket. What is the total sales of all the items in the "Gold" ticket type? Write the number in `/data/ticket-sales-gold.txt`'
+        'The SQLite database file /data/ticket-sales.db has a tickets with columns type, units, and price. Each row is a customer bid for a concert ticket. What is the total sales of all the items in the "Gold" ticket type? Write the number in /data/ticket-sales-gold.txt'
     )
     result = await read("/data/ticket-sales-gold.txt")
     expected = sum(row[1] * row[2] for row in data if row[0].lower() == "gold")
@@ -239,17 +239,17 @@ async def main(email: str):
         try:
             success = await task(email=email)
         except Exception as e:
-            logging.error(f"🔴 {task.__name__.upper()} failed: {e}")
+            logging.error(f"🔴 {task._name_.upper()} failed: {e}")
             success = False
         if success:
-            logging.info(f"✅ {task.__name__.upper()} PASSED")
+            logging.info(f"✅ {task._name_.upper()} PASSED")
         else:
-            logging.error(f"❌ {task.__name__.upper()} FAILED")
+            logging.error(f"❌ {task._name_.upper()} FAILED")
         score += 1 if success else 0
     logging.info(f"🎯 Score: {score} / {total}")
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     import asyncio
     import argparse
 
