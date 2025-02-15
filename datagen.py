@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("email")
-    parser.add_argument("--root", default="./project-1/data")
+    parser.add_argument("--root", default="./data")
     args = parser.parse_args()
     config["email"] = args.email
     config["root"] = os.path.abspath(args.root)
