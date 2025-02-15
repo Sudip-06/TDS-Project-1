@@ -8,9 +8,6 @@
 #     "python-dateutil",
 # ]
 # ///
-
-
-
 import hashlib
 import httpx
 import json
@@ -32,7 +29,7 @@ from datagen import (
     get_tickets,
 )
 
-email="23f3004246@ds.study.iitm.ac.in"
+
 openai_api_base = os.getenv("OPENAI_API_BASE", "https://aiproxy.sanand.workers.dev/openai/v1")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 
@@ -257,7 +254,7 @@ if __name__ == "__main__":
     import argparse
 
     parser = argparse.ArgumentParser(description="Evaluate tasks with configurable logging")
-    parser.add_argument("--email", default="23f3004246@ds.study.iitm.ac.in", help="23f3004246@ds.study.iitm.ac.in")
+    parser.add_argument("--email", default="user@example.com", help="Set the email address")
     levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
     parser.add_argument("--log-level", default="INFO", choices=levels, help="Set logging level")
     args = parser.parse_args()
