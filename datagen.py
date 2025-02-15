@@ -1,4 +1,14 @@
-#aa.\.e
+# DISCLAIMER: THIS SCRIPT WILL CHANGE BEFORE THE EVALUATION. TREAT THIS AS A GUIDE.
+
+# Usage: uv run datagen.py <email>
+
+# /// script
+# requires-python = ">=3.13"
+# dependencies = [
+#     "faker",
+#     "pillow",
+# ]
+# ///
 
 import datetime
 import hashlib
@@ -12,7 +22,6 @@ from faker import Faker
 
 config = {"root": "/data"}
 
-email ="23f3004246@ds.study.iitm.ac.in"
 
 def num(str):
     return int(hashlib.sha256(str.encode()).hexdigest(), 16) % (2**32)
@@ -286,3 +295,5 @@ if __name__ == "__main__":
     a8_credit_card_image()
     a9_comments()
     a10_ticket_sales()
+
+# DISCLAIMER: THIS SCRIPT WILL CHANGE BEFORE THE EVALUATION. TREAT THIS AS A GUIDE.
